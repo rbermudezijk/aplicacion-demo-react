@@ -33,7 +33,11 @@ const styles = StyleSheet.create({
     borderColor: '#48BBEC',
     borderRadius: 8,
     color: '#48BBEC'
-  }
+  },
+  image:{
+    width: 217,
+    height: 138,
+  },
 });
 
 const layout = {
@@ -47,6 +51,10 @@ const layout = {
     color: '#48BBEC',
     title: 'Buscar',
   },
+  searchImage: {
+    source: require('./assets/house.png'),
+    style: styles.image
+  }
 };
 
 type Props = {};
@@ -69,6 +77,7 @@ export default class SearchPage extends Component<Props> {
             <TextInput {...layout.searchInput}/>
             <Button {...layout.searchButton}/>
           </View>
+          <Image {...layout.searchImage}/>
         </View>
       );
     }
