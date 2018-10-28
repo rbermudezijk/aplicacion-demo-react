@@ -1,23 +1,8 @@
-import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+'use strict';
+import { createStackNavigator } from 'react-navigation';
+import SearchPage from './src/SearchPage';
 
-type Props = {};
-
-const styles = StyleSheet.create({
-  description: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#656565',
-    marginTop: 65,
-  },
+const App = createStackNavigator({
+  Home: { screen: SearchPage }
 });
-
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <Text style={styles.description}>
-        ¡Busqueda de casas para comprar!
-      </Text>
-    );
-  }
-}
+export default App;
