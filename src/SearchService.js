@@ -13,7 +13,6 @@ export default class ServiceSearch extends Service {
     }
 
     select = query =>
-      console.log(this.urlQuery(query)) || 
       fetch(this.urlQuery(query))
         .then(res => res.json())
         .then(res => this.handleRes(res.response))
