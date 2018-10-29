@@ -1,16 +1,9 @@
 
 import React, { Component } from 'react';
-import {
-  StyleSheet, Image, View, TouchableHighlight, FlatList, Text
-} from 'react-native'
+import { FlatList } from 'react-native';
+import ListItem from './ListItem';
 
 type Props = {};
-
-const layout = {
-  touchable: {
-    underlayColor: '#dddddd',
-  },
-}
 
 export default class SearchResults extends Component<Props> {
     static navigationOptions = {
@@ -23,14 +16,18 @@ export default class SearchResults extends Component<Props> {
     
     _keyExtractor = (
       (item, index) => index.toString()
-    ).bind(this);
+    );
 
-    _renderItem = ({item}) => 
-      <TouchableHighlight {...layout.touchable}>
-        <View>
-          <Text>{item.title}</Text>
-        </View>
-      </TouchableHighlight>
+    _onPressItem = (
+      (index) => console.log(index)
+    );
+
+    _renderItem = (({item, index}) => 
+      <ListItem
+        item={item}
+        index={index}
+        onPressItem={this._onPressItem}
+      />);
     
     render() {
       const { params } = this.props.navigation.state;

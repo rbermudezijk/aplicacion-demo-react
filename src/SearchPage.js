@@ -96,7 +96,7 @@ export default class SearchPage extends Component<Props> {
       )
       .then( res =>
         this.props.navigation.navigate(
-          'Results',{listings: res.listings}
+          'Results', {listings: res.listings}
         ) )
       .catch( error => this.setState({message: error.message}) )
       .finally( ()  => this.setState({isLoading: false}) )
