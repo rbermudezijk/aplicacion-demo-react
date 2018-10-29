@@ -1,9 +1,7 @@
 'use strict';
 
 import React, { Component }  from 'react';
-import { StyleSheet, Text, 
-         TextInput,  View,
-         Button,    Image,
+import { StyleSheet, Text, TextInput, View, Button, Image,
          ActivityIndicator,} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -13,7 +11,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#656565',
   },
-  container:{
+  container: {
     padding: 30,
     marginTop: 65,
     alignItems: 'center',
@@ -34,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: '#48BBEC'
   },
-  image:{
+  image: {
     width: 217,
     height: 138,
   },
@@ -64,6 +62,17 @@ export default class SearchPage extends Component<Props> {
       title: 'Buscador de Casas',
     };
   
+    constructor (...args) {
+      super(...args);
+      this.state = {
+        searchString: 'Londres',
+      };
+    }
+    
+    onSearchTextChanged = ((event) => {
+      this.setState({searchString: event.nativeEvent.text});
+    }).bind(this);
+
     render() {
       return (
         <View style={styles.container}>
@@ -74,11 +83,14 @@ export default class SearchPage extends Component<Props> {
             Búsqueda por ubicación o código postal.
           </Text>
           <View style={styles.flowRight}>
-            <TextInput {...layout.searchInput}/>
+            <TextInput 
+              value={this.state.searchString}
+              onChange={this.onSearchTextChanged}
+              {...layout.searchInput}/>
             <Button {...layout.searchButton}/>
           </View>
           <Image {...layout.searchImage}/>
         </View>
       );
     }
-  }
+}
