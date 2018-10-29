@@ -5,6 +5,7 @@ import { StyleSheet, Text, TextInput, View, Button, Image,
          ActivityIndicator,} from 'react-native';
 
 import urlPagination from './Utils';
+import SearchService from './SearchService';
 
 const styles = StyleSheet.create({
   description: {
@@ -66,34 +67,37 @@ export default class SearchPage extends Component<Props> {
     constructor (...args) {
       super(...args);
       this.state = {
-        searchString: 'Londres',
+        searchString: 'london',
         isLoading: false,
+        message: '',
       };
+
+      this.searchService = new SearchService();
     }
-
-    executeQuery(query) {
-      console.log(query);
-      this.setState({isLoading: true});
-    };
-
-    _onSearchTextChanged = ((event) => {
-      this.setState({searchString: event.nativeEvent.text});
-    }).bind(this);
-
-    _onSearchPressed = (() =>
-      console.log('entra') ||
-      this.executeQuery(
-        urlPagination({
-          place_name: this.state.searchString,
-          page: 1,
-        })
-      )
-    ).bind(this);
 
     _activeSpinner = (() => {
       return this.state.isLoading 
             ? <ActivityIndicator size='large'/>
             : null
+    }).bind(this);
+
+    _onSearchTextChanged = ((event) => {
+      this.setState({searchString: event.nativeEvent.text});
+    }).bind(this);
+
+    _onSearchPressed = (() => {
+      this.setState({isLoading: true});
+
+      this.searchService.select(
+        urlPagination({
+          place_name: this.state.searchString,
+          page: 1,
+        })
+      )
+      .then(  resp  => this.setState({message: resp.listings.length}) )
+      .catch( error => this.setState({message: error.message}) )
+      .finally( ()  => this.setState({isLoading: false}) )
+
     }).bind(this);
 
     render() {
@@ -116,6 +120,9 @@ export default class SearchPage extends Component<Props> {
           </View>
           <Image {...layout.searchImage}/>
           {this._activeSpinner()}
+          <Text style={styles.description}>
+            {this.state.message}
+          </Text>
         </View>
       );
     }
