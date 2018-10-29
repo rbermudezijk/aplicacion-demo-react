@@ -4,6 +4,8 @@ import React, { Component }  from 'react';
 import { StyleSheet, Text, TextInput, View, Button, Image,
          ActivityIndicator,} from 'react-native';
 
+import urlPagination from './Utils';
+
 const styles = StyleSheet.create({
   description: {
     fontSize: 18,
@@ -45,7 +47,6 @@ const layout = {
     placeholder: 'Buscar por nombre o C.P.',
   },
   searchButton: {
-    onPress: () => {},
     color: '#48BBEC',
     title: 'Buscar',
   },
@@ -66,11 +67,33 @@ export default class SearchPage extends Component<Props> {
       super(...args);
       this.state = {
         searchString: 'Londres',
+        isLoading: false,
       };
     }
-    
-    onSearchTextChanged = ((event) => {
+
+    executeQuery(query) {
+      console.log(query);
+      this.setState({isLoading: true});
+    };
+
+    _onSearchTextChanged = ((event) => {
       this.setState({searchString: event.nativeEvent.text});
+    }).bind(this);
+
+    _onSearchPressed = (() =>
+      console.log('entra') ||
+      this.executeQuery(
+        urlPagination({
+          place_name: this.state.searchString,
+          page: 1,
+        })
+      )
+    ).bind(this);
+
+    _activeSpinner = (() => {
+      return this.state.isLoading 
+            ? <ActivityIndicator size='large'/>
+            : null
     }).bind(this);
 
     render() {
@@ -85,11 +108,14 @@ export default class SearchPage extends Component<Props> {
           <View style={styles.flowRight}>
             <TextInput 
               value={this.state.searchString}
-              onChange={this.onSearchTextChanged}
+              onChange={this._onSearchTextChanged}
               {...layout.searchInput}/>
-            <Button {...layout.searchButton}/>
+            <Button 
+              onPress={this._onSearchPressed}
+              {...layout.searchButton}/>
           </View>
           <Image {...layout.searchImage}/>
+          {this._activeSpinner()}
         </View>
       );
     }
