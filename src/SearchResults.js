@@ -18,25 +18,21 @@ export default class SearchResults extends Component<Props> {
       (item, index) => index.toString()
     );
 
-    _onPressItem = (
-      (index) => console.log(index)
-    );
-
     _renderItem = (({item, index}) => 
       <ListItem
         item={item}
         index={index}
-        onPressItem={this._onPressItem}
+        navigate={this.props.navigation.navigate}
       />);
     
     render() {
-      const { params } = this.props.navigation.state;
+      const { listings } = this.props.navigation.state.params;
 
       return (
         <FlatList
-          data={params.listings}
+          data={listings}
           keyExtractor = {this._keyExtractor}
-          renderItem={this._renderItem}
+          renderItem = {this._renderItem}
         />
       );
     }

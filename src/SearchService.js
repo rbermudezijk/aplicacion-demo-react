@@ -15,8 +15,7 @@ export default class ServiceSearch extends Service {
     select = query =>
       fetch(this.urlQuery(query))
         .then(res => res.json())
-        .then(res => this.handleRes(res.response))
-
+        .then(res => this.handleRes(res.response));
 }
 
 //https://api.nestoria.co.uk/api?country=uk&pretty=1&encoding=json&listing_type=buy&action=search_listings&page=1&place_name=Londres

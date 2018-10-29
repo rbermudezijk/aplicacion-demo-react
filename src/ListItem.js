@@ -32,9 +32,12 @@ const styles = StyleSheet.create({
 });
 
   
-export default class ListItem extends React.PureComponent {
+export default class ListItem extends React.Component {
+    
     _onPress = (() => {
-      this.props.onPressItem(this.props.index);
+      this.props.navigate(
+        'Details', { itemDetails: this.props.item }
+      );
     }).bind(this);
 
     render () {
