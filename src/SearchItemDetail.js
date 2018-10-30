@@ -1,11 +1,48 @@
 import React, {Component} from 'react';
 import { Text, View, Image } from 'react-native';
+//import ActionButton from 'react-native-action-button';
 
 const layout = {
+    iconButton: {
+        width: 20,
+        height: 20,        
+    },
+    icon: {
+      width: 20,
+      height: 20,
+      margin: 10,
+      marginLeft: 20,
+      marginTop: 24,
+    },
+    iconText: {
+      fontSize: 20,
+      marginTop: 16,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: '#656565',
+    },
     mainImage: {
       height: 300,
       width: 420,
-    }
+    },
+    textDefault: {
+      fontSize: 20,
+      marginTop: 20,
+      textAlign: 'center',
+      color: '#656565',
+    },
+    title: {
+      fontSize: 20,
+      marginTop: 20,
+      textAlign: 'center',
+      fontWeight: 'bold',
+      color: '#48BBEC',
+    },
+    flowRight: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      alignSelf: 'stretch',
+    },
 };
 
 type Props = {};
@@ -23,11 +60,41 @@ export default class SearchItemDetail extends Component<Props> {
         const { itemDetails } = this.props.navigation.state.params;
         
         return (
-            <View>
+          <View>
+              <Image
+                source={{uri: itemDetails.img_url}}
+                style={layout.mainImage}/>
+              <Text style={layout.title}>
+                {itemDetails.title}
+              </Text>
+              <Text style={layout.textDefault}>
+                {itemDetails.summary}
+              </Text>
+              <View style={layout.flowRight}>
                 <Image
-                  source={{uri: itemDetails.img_url}}
-                  style={layout.mainImage}/>
-            </View>
+                  source={require('./assets/bath-icon.png')}
+                  style={layout.icon}/>
+                <Text style={layout.iconText}>
+                  Baños: {itemDetails.bathroom_number}
+                </Text>
+              </View>
+              <View style={layout.flowRight}>
+                <Image
+                  source={require('./assets/bed-icon.png')}
+                  style={layout.icon}/>
+                <Text style={layout.iconText}>
+                  Cuartos: {itemDetails.bedroom_number}
+                </Text>
+              </View>
+              <View style={layout.flowRight}>
+                <Image
+                  source={require('./assets/car-icon.png')}
+                  style={layout.icon}/>
+                <Text style={layout.iconText}>
+                  Estacionamientos: {itemDetails.bedroom_number}
+                </Text>
+              </View>
+          </View>
         )
     }
 }
