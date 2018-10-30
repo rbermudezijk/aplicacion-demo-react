@@ -67,7 +67,7 @@ export default class SearchPage extends Component<Props> {
     constructor (...args) {
       super(...args);
       this.state = {
-        searchString: 'london',
+        searchString: '',
         isLoading: false,
         message: '',
       };

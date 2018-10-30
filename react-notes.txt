@@ -82,7 +82,7 @@
 #**** Documentación Oficial ****
 # https://facebook.github.io/react-native/docs/getting-started
 #
-#https://github.com/mastermoo/react-native-action-button
-#https://www.youtube.com/watch?v=9LRey1KyQ08
-#https://www.youtube.com/watch?v=-xFF5KF-KpE&list=PL7D-0n1z1EbhkundIsOBaN_mlLvV4_hyO
-#https://www.youtube.com/watch?v=RjW1hMOA9M0
+# https://github.com/mastermoo/react-native-action-button
+# https://www.youtube.com/watch?v=9LRey1KyQ08
+# https://www.youtube.com/watch?v=-xFF5KF-KpE&list=PL7D-0n1z1EbhkundIsOBaN_mlLvV4_hyO
+# https://www.youtube.com/watch?v=RjW1hMOA9M0

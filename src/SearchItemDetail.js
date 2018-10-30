@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { Text, View, Image } from 'react-native';
-//import ActionButton from 'react-native-action-button';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const layout = {
     iconButton: {
@@ -12,11 +13,9 @@ const layout = {
       height: 20,
       margin: 10,
       marginLeft: 20,
-      marginTop: 24,
     },
     iconText: {
       fontSize: 20,
-      marginTop: 16,
       fontWeight: 'bold',
       textAlign: 'center',
       color: '#656565',
@@ -60,7 +59,7 @@ export default class SearchItemDetail extends Component<Props> {
         const { itemDetails } = this.props.navigation.state.params;
         
         return (
-          <View>
+          <View style={{flex:1, backgroundColor: '#f3f3f3'}}>
               <Image
                 source={{uri: itemDetails.img_url}}
                 style={layout.mainImage}/>
@@ -70,6 +69,7 @@ export default class SearchItemDetail extends Component<Props> {
               <Text style={layout.textDefault}>
                 {itemDetails.summary}
               </Text>
+              {itemDetails.bathroom_number !== '' ?
               <View style={layout.flowRight}>
                 <Image
                   source={require('./assets/bath-icon.png')}
@@ -77,7 +77,8 @@ export default class SearchItemDetail extends Component<Props> {
                 <Text style={layout.iconText}>
                   Baños: {itemDetails.bathroom_number}
                 </Text>
-              </View>
+              </View> : null}
+              {itemDetails.bedroom_number !== '' ?
               <View style={layout.flowRight}>
                 <Image
                   source={require('./assets/bed-icon.png')}
@@ -85,15 +86,17 @@ export default class SearchItemDetail extends Component<Props> {
                 <Text style={layout.iconText}>
                   Cuartos: {itemDetails.bedroom_number}
                 </Text>
-              </View>
+              </View> : null}
+              {itemDetails.car_spaces !== '' ?
               <View style={layout.flowRight}>
                 <Image
                   source={require('./assets/car-icon.png')}
                   style={layout.icon}/>
                 <Text style={layout.iconText}>
-                  Estacionamientos: {itemDetails.bedroom_number}
+                  Estacionamientos: {itemDetails.car_spaces}
                 </Text>
-              </View>
+              </View> : null}
+              <ActionButton buttonColor="#03A9F4"></ActionButton>
           </View>
         )
     }
