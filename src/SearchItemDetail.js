@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import ActionButton from 'react-native-action-button';
-import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const layout = {
     iconButton: {
@@ -55,48 +55,63 @@ export default class SearchItemDetail extends Component<Props> {
       super(...args);
     }
 
+    showMap = (()=>{
+      const { itemDetails } = this.props.navigation.state.params;
+      
+      this.props.navigation.navigate(
+        'MapLocation', {
+          latitude: itemDetails.latitude,
+          longitude: itemDetails.longitude,
+        }
+      );
+
+    }).bind(this);
+
     render() {
         const { itemDetails } = this.props.navigation.state.params;
-        
+
         return (
           <View style={{flex:1, backgroundColor: '#f3f3f3'}}>
+            <Image
+              source={{uri: itemDetails.img_url}}
+              style={layout.mainImage}/>
+            <Text style={layout.title}>
+              {itemDetails.title}
+            </Text>
+            <Text style={layout.textDefault}>
+              {itemDetails.summary}
+            </Text>
+            {itemDetails.bathroom_number !== '' ?
+            <View style={layout.flowRight}>
               <Image
-                source={{uri: itemDetails.img_url}}
-                style={layout.mainImage}/>
-              <Text style={layout.title}>
-                {itemDetails.title}
+                source={require('./assets/bath-icon.png')}
+                style={layout.icon}/>
+              <Text style={layout.iconText}>
+                Baños: {itemDetails.bathroom_number}
               </Text>
-              <Text style={layout.textDefault}>
-                {itemDetails.summary}
+            </View> : null}
+            {itemDetails.bedroom_number !== '' ?
+            <View style={layout.flowRight}>
+              <Image
+                source={require('./assets/bed-icon.png')}
+                style={layout.icon}/>
+              <Text style={layout.iconText}>
+                Cuartos: {itemDetails.bedroom_number}
               </Text>
-              {itemDetails.bathroom_number !== '' ?
-              <View style={layout.flowRight}>
-                <Image
-                  source={require('./assets/bath-icon.png')}
-                  style={layout.icon}/>
-                <Text style={layout.iconText}>
-                  Baños: {itemDetails.bathroom_number}
-                </Text>
-              </View> : null}
-              {itemDetails.bedroom_number !== '' ?
-              <View style={layout.flowRight}>
-                <Image
-                  source={require('./assets/bed-icon.png')}
-                  style={layout.icon}/>
-                <Text style={layout.iconText}>
-                  Cuartos: {itemDetails.bedroom_number}
-                </Text>
-              </View> : null}
-              {itemDetails.car_spaces !== '' ?
-              <View style={layout.flowRight}>
-                <Image
-                  source={require('./assets/car-icon.png')}
-                  style={layout.icon}/>
-                <Text style={layout.iconText}>
-                  Estacionamientos: {itemDetails.car_spaces}
-                </Text>
-              </View> : null}
-              <ActionButton buttonColor="#03A9F4"></ActionButton>
+            </View> : null}
+            {itemDetails.car_spaces !== '' ?
+            <View style={layout.flowRight}>
+              <Image
+                source={require('./assets/car-icon.png')}
+                style={layout.icon}/>
+              <Text style={layout.iconText}>
+                Estacionamientos: {itemDetails.car_spaces}
+              </Text>
+            </View> : null}
+            <ActionButton 
+              onPress={this.showMap}
+              renderIcon={ ()=> (<MaterialIcons name="location-on" color='white' size={30}/>)}
+            ></ActionButton>
           </View>
         )
     }
