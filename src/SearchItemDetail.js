@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const layout = {
+const layout = StyleSheet.create({
     iconButton: {
         width: 20,
         height: 20,        
@@ -42,7 +42,7 @@ const layout = {
       alignItems: 'center',
       alignSelf: 'stretch',
     },
-};
+});
 
 type Props = {};
 
